@@ -1,5 +1,8 @@
 [English](./README.md) | 简体中文
 
+# 注意啦！！！
+开发之前先 **Fork** 到自己的账号下。然后开发完一个功能发送Merge Request（类似Github的Pull Request） 。
+
 # Ant Design Pro
 
 [![](https://img.shields.io/travis/ant-design/ant-design-pro.svg?style=flat-square)](https://travis-ci.org/ant-design/ant-design-pro) [![Build status](https://ci.appveyor.com/api/projects/status/67fxu2by3ibvqtat/branch/master?svg=true)](https://ci.appveyor.com/project/afc163/ant-design-pro/branch/master)  [![Gitter](https://badges.gitter.im/ant-design/ant-design-pro.svg)](https://gitter.im/ant-design/ant-design-pro?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)

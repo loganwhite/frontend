@@ -1,5 +1,8 @@
 English | [简体中文](./README.zh-CN.md)
 
+# ATTENTION !!!!
+We have to **Fork** to our own repo before developing!!!! And send Merge Reuqest (just like Pull Request on Github) to this original repo.
+
 # Ant Design Pro
 
 [![](https://img.shields.io/travis/ant-design/ant-design-pro.svg?style=flat-square)](https://travis-ci.org/ant-design/ant-design-pro) [![Build status](https://ci.appveyor.com/api/projects/status/67fxu2by3ibvqtat/branch/master?svg=true)](https://ci.appveyor.com/project/afc163/ant-design-pro/branch/master)  [![Gitter](https://badges.gitter.im/ant-design/ant-design-pro.svg)](https://gitter.im/ant-design/ant-design-pro?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
