@@ -268,7 +268,7 @@ class BasicLayout extends React.PureComponent {
           <div className={styles.logo}>
             <Link to="/">
               <img src="https://gw.alipayobjects.com/zos/rmsportal/iwWyPinUoseUxIAeElSx.svg" alt="logo" />
-              <h1>Ant Design Pro</h1>
+              <h1>虹宇国旅</h1>
             </Link>
           </div>
           <Menu
@@ -289,6 +289,7 @@ class BasicLayout extends React.PureComponent {
               type={collapsed ? 'menu-unfold' : 'menu-fold'}
               onClick={this.toggle}
             />
+            <h1 style={{ display: 'inline' }}>虹宇国旅</h1>
             <div className={styles.right}>
               <HeaderSearch
                 className={`${styles.action} ${styles.search}`}
@@ -359,22 +360,22 @@ class BasicLayout extends React.PureComponent {
               <Route component={NotFound} />
             </Switch>
             <GlobalFooter
-              links={[{
-                title: 'Pro 首页',
-                href: 'http://pro.ant.design',
-                blankTarget: true,
-              }, {
-                title: 'GitHub',
-                href: 'https://github.com/ant-design/ant-design-pro',
-                blankTarget: true,
-              }, {
-                title: 'Ant Design',
-                href: 'http://ant.design',
-                blankTarget: true,
-              }]}
+              // links={[{
+              //   title: 'Pro 首页',
+              //   href: 'http://pro.ant.design',
+              //   blankTarget: true,
+              // }, {
+              //   title: 'GitHub',
+              //   href: 'https://github.com/ant-design/ant-design-pro',
+              //   blankTarget: true,
+              // }, {
+              //   title: 'Ant Design',
+              //   href: 'http://ant.design',
+              //   blankTarget: true,
+              // }]}
               copyright={
                 <div>
-                  Copyright <Icon type="copyright" /> 2017 蚂蚁金服体验技术部出品
+                  Copyright <Icon type="copyright" /> {new Date().getFullYear()} 北京邮电大学
                 </div>
               }
             />

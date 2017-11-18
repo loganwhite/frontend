@@ -16,7 +16,7 @@ import RegisterModel from '../models/register';
 // components
 import BasicLayout from '../layouts/BasicLayout';
 import UserLayout from '../layouts/UserLayout';
-import BlankLayout from '../layouts/BlankLayout';
+// import BlankLayout from '../layouts/BlankLayout';
 
 import Analysis from '../routes/Dashboard/Analysis';
 import Monitor from '../routes/Dashboard/Monitor';
@@ -240,14 +240,14 @@ export const getNavData = app => [
       },
     ],
   },
-  {
-    component: dy(app, [], BlankLayout),
-    layout: 'BlankLayout',
-    children: {
-      name: '使用文档',
-      path: 'http://pro.ant.design/docs/getting-started',
-      target: '_blank',
-      icon: 'book',
-    },
-  },
+  // {
+  //   component: dy(app, [], BlankLayout),
+  //   layout: 'BlankLayout',
+  //   children: {
+  //     name: '返回首页',
+  //     path: '//',
+  //     target: '_blank',
+  //     icon: 'book',
+  //   },
+  // },
 ];

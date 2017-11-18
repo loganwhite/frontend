@@ -178,12 +178,13 @@ export default class Login extends Component {
             </Button>
           </FormItem>
         </Form>
-        <div className={styles.other}>
-          其他登录方式
-          {/* 需要加到 Icon 中 */}
-          <span className={styles.iconAlipay} />
-          <span className={styles.iconTaobao} />
-          <span className={styles.iconWeibo} />
+        <div className={styles.other}> {
+          // 其他登录方式
+          // {/* 需要加到 Icon 中 */}
+          // <span className={styles.iconAlipay} />
+          // <span className={styles.iconTaobao} />
+          // <span className={styles.iconWeibo} />
+          }
           <Link className={styles.register} to="/user/register">注册账户</Link>
         </div>
       </div>
