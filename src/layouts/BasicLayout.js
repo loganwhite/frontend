@@ -408,10 +408,10 @@ class BasicLayout extends React.PureComponent {
           <Content style={{ margin: '24px 24px 0', height: '100%' }}>
             <Tabs
               hideAdd
-              onTabsChange={this.onChange}
+              onChange={this.onTabsChange}
               activeKey={this.state.activeKey}
               type="editable-card"
-              onTabsEdit={this.onEdit}
+              onEdit={this.onTabsEdit}
             >
               {this.state.panes.map(pane =>
                 (
