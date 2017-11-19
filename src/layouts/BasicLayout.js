@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Layout, Menu, Icon, Avatar, Dropdown, Tag, message, Spin } from 'antd';
+import { Layout, Menu, Icon, Avatar, Dropdown, Tag, message, Spin, Tabs } from 'antd';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'dva';
-import { Link, Route, Redirect, Switch } from 'dva/router';
+import { Link, Route, Redirect, Switch, routerRedux } from 'dva/router';
 import moment from 'moment';
 import groupBy from 'lodash/groupBy';
 import { ContainerQuery } from 'react-container-query';
@@ -47,8 +47,16 @@ class BasicLayout extends React.PureComponent {
     super(props);
     // 把一级 Layout 的 children 作为菜单项
     this.menus = props.navData.reduce((arr, current) => arr.concat(current.children), []);
+    // for tabs, added by logan.
+
+    const panes = [
+      { title: '欢迎', content: '', key: 'welcome', closable: false },
+    ];
     this.state = {
       openKeys: this.getDefaultCollapsedSubMenus(props),
+      // for tabs, added by logan
+      activeKey: panes[0].key,
+      panes,
     };
   }
   getChildContext() {
@@ -83,6 +91,44 @@ class BasicLayout extends React.PureComponent {
         type: 'login/logout',
       });
     }
+  }
+  // for tabs, added by logan
+  onSiderMenuClick = ({ item }) => {
+    const path = item.props.children.props.to;
+    const name = item.props.children.props.children[1].props.children;
+    // const r = this.props.getRouteData('BasicLayout');
+    // let route_item = null;
+    // for (let i = 0; i < r.length; i++) {
+    //   if (r[i].path == path) {
+    //     route_item = r[i];
+    //     break;
+    //   }
+    // }
+
+    let flag = 1;
+    for (let i = 0; i < this.state.panes.length; i += 1) {
+      if (path === this.state.panes[i].key) {
+        flag = 0;
+        this.setState({ activeKey: path });
+      }
+    }
+    if (flag === 1) {
+      const contentName = (name.length >= 7) ? `${name.substr(0, 7)}...` : name;
+      const { panes } = this.state;
+      const activeKey = path;
+      // fake content, actually no content in this tab, use the default router, by logan
+      panes.push({ title: contentName, content: '', key: activeKey });
+      this.setState({ panes, activeKey });
+    }
+  }
+  // handle tabs, added by logan
+  onTabsChange = (activeKey) => {
+    this.props.dispatch(routerRedux.push(activeKey));
+    // routerRedux.push(activeKey);
+    this.setState({ activeKey });
+  }
+  onTabsEdit = (targetKey, action) => {
+    this[action](targetKey);
   }
   getMenuData = (data, parentPath) => {
     let arr = [];
@@ -166,10 +212,10 @@ class BasicLayout extends React.PureComponent {
   getPageTitle() {
     const { location, getRouteData } = this.props;
     const { pathname } = location;
-    let title = 'Ant Design Pro';
+    let title = '虹宇国旅';
     getRouteData('BasicLayout').forEach((item) => {
       if (item.path === pathname) {
-        title = `${item.name} - Ant Design Pro`;
+        title = `${item.name} - 虹宇国旅`;
       }
     });
     return title;
@@ -200,6 +246,22 @@ class BasicLayout extends React.PureComponent {
       return newNotice;
     });
     return groupBy(newNotices, 'type');
+  }
+  // for tabs removement, added by logan
+  remove = (targetKey) => {
+    let { activeKey } = this.state;
+    let lastIndex;
+    this.state.panes.forEach((pane, i) => {
+      if (pane.key === targetKey) {
+        lastIndex = i - 1;
+      }
+    });
+    const panes = this.state.panes.filter(pane => pane.key !== targetKey);
+    if (lastIndex >= 0 && activeKey === targetKey) {
+      activeKey = panes[lastIndex].key;
+    }
+    this.setState({ panes, activeKey });
+    this.props.dispatch(routerRedux.push(activeKey));
   }
   handleOpenChange = (openKeys) => {
     const lastOpenKey = openKeys[openKeys.length - 1];
@@ -275,6 +337,7 @@ class BasicLayout extends React.PureComponent {
             theme="dark"
             mode="inline"
             {...menuProps}
+            onClick={this.onSiderMenuClick}
             onOpenChange={this.handleOpenChange}
             selectedKeys={this.getCurrentMenuSelectedKeys()}
             style={{ margin: '16px 0', width: '100%' }}
@@ -343,6 +406,22 @@ class BasicLayout extends React.PureComponent {
             </div>
           </Header>
           <Content style={{ margin: '24px 24px 0', height: '100%' }}>
+            <Tabs
+              hideAdd
+              onTabsChange={this.onChange}
+              activeKey={this.state.activeKey}
+              type="editable-card"
+              onTabsEdit={this.onEdit}
+            >
+              {this.state.panes.map(pane =>
+                (
+                  <Tabs.TabPane tab={pane.title} key={pane.key} closable={pane.closable}>
+                    {pane.content}
+                  </Tabs.TabPane>
+                )
+              )}
+            </Tabs>
+
             <Switch>
               {
                 getRouteData('BasicLayout').map(item =>
