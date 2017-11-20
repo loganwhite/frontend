@@ -43,6 +43,7 @@ import Error from '../routes/Result/Error';
 import Exception403 from '../routes/Exception/403';
 import Exception404 from '../routes/Exception/404';
 import Exception500 from '../routes/Exception/500';
+import ExceptionDenied from '../routes/Exception/denied';
 
 import Login from '../routes/User/Login';
 import Register from '../routes/User/Register';
@@ -206,6 +207,11 @@ export const getNavData = app => [
             name: '500',
             path: '500',
             component: dy(app, [], Exception500),
+          },
+          {
+            name: 'denied',
+            path: 'denied',
+            component: dy(app, [], ExceptionDenied),
           },
         ],
       },

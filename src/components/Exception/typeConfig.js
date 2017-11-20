@@ -14,6 +14,11 @@ const config = {
     title: '500',
     desc: '抱歉，服务器出错了',
   },
+  denied: {
+    img: 'https://gw.alipayobjects.com/zos/rmsportal/RVRUAYdCGeYNBWoKiIwB.svg',
+    title: '权限拒绝',
+    desc: '抱歉，您没有访问权限',
+  },
 };
 
 export default config;
