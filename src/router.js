@@ -4,8 +4,10 @@ import { LocaleProvider, Spin } from 'antd';
 import zhCN from 'antd/lib/locale-provider/zh_CN';
 import dynamic from 'dva/dynamic';
 import cloneDeep from 'lodash/cloneDeep';
-import { getNavData } from './common/nav';
+import { getNavData, cMap, mMap, dy } from './common/nav';
 import { getPlainNode } from './utils/utils';
+
+import { queryMenu } from './services/api';
 
 import styles from './index.less';
 
@@ -37,8 +39,33 @@ function getLayout(navData, path) {
   };
 }
 
-function RouterConfig({ history, app }) {
-  const navData = getNavData(app);
+async function getDyNavData(app) {
+  const response = await queryMenu();
+  return processNav(response, app);
+}
+
+function processNav(menu, app) {
+  let nav = getNavData(app);
+  addProperty(menu, app);
+  nav[0].children = menu;
+  return nav;
+}
+
+function addProperty(menu, app) {
+  menu.map((item) => {
+    if (!(item.children == null || item.children.length == 0)) {
+      addProperty(item.children, app);
+    } else {
+      item.component = dy(app, mMap.get(item.id), cMap.get(item.id));
+    }
+    
+  });
+}
+
+async function RouterConfig({ history, app }) {
+  const navData = await getDyNavData(app);
+  console.log(navData);
+  //const navData = getNavData(app);
   const UserLayout = getLayout(navData, 'UserLayout').component;
   const BasicLayout = getLayout(navData, 'BasicLayout').component;
 

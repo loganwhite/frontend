@@ -303,8 +303,8 @@ class BasicLayout extends React.PureComponent {
 
     const menu = (
       <Menu className={styles.menu} selectedKeys={[]} onClick={this.onMenuClick}>
-        <Menu.Item disabled><Icon type="user" />个人中心</Menu.Item>
-        <Menu.Item disabled><Icon type="setting" />设置</Menu.Item>
+        <Menu.Item ><Icon type="user" />个人中心</Menu.Item>
+        <Menu.Item ><Icon type="setting" />设置</Menu.Item>
         <Menu.Divider />
         <Menu.Item key="logout"><Icon type="logout" />退出登录</Menu.Item>
       </Menu>
@@ -352,7 +352,7 @@ class BasicLayout extends React.PureComponent {
               type={collapsed ? 'menu-unfold' : 'menu-fold'}
               onClick={this.toggle}
             />
-            <h1 style={{ display: 'inline' }}>虹宇国旅</h1>
+            <h1 style={{ display: 'inline', margin: '0 24px' }}>虹宇国旅</h1>
             <div className={styles.right}>
               <HeaderSearch
                 className={`${styles.action} ${styles.search}`}
@@ -398,7 +398,9 @@ class BasicLayout extends React.PureComponent {
               {currentUser.name ? (
                 <Dropdown overlay={menu}>
                   <span className={`${styles.action} ${styles.account}`}>
-                    <Avatar size="small" className={styles.avatar} src={currentUser.avatar} />
+                    {
+                    // <Avatar size="small" className={styles.avatar} src={currentUser.avatar} />
+                  }
                     {currentUser.name}
                   </span>
                 </Dropdown>
@@ -406,7 +408,7 @@ class BasicLayout extends React.PureComponent {
             </div>
           </Header>
           <Content style={{ margin: '24px 24px 0', height: '100%' }}>
-            <Tabs
+            {/* <Tabs
               hideAdd
               onChange={this.onTabsChange}
               activeKey={this.state.activeKey}
@@ -420,7 +422,7 @@ class BasicLayout extends React.PureComponent {
                   </Tabs.TabPane>
                 )
               )}
-            </Tabs>
+            </Tabs> */ }
 
             <Switch>
               {
@@ -478,4 +480,6 @@ export default connect(state => ({
   collapsed: state.global.collapsed,
   fetchingNotices: state.global.fetchingNotices,
   notices: state.global.notices,
+  fetchingMenu: state.global.fetchingMenu,
+  sidemenu: state.global.sidemenu,
 }))(BasicLayout);

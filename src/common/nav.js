@@ -1,5 +1,7 @@
 import dynamic from 'dva/dynamic';
 
+// import { queryMenu } from '../services/api';
+
 // models
 import UserModel from '../models/user';
 import ChartModel from '../models/chart';
@@ -49,14 +51,54 @@ import Login from '../routes/User/Login';
 import Register from '../routes/User/Register';
 import RegisterResult from '../routes/User/RegisterResult';
 
+// stores components and models needed by url, 
+// cMap is short for component
+// mMap is short for model
+// the key to the maps are id of items
+export const cMap = new Map();
+export const mMap = new Map();
+
+cMap.set('10100', Analysis);
+mMap.set('10100', [ChartModel]);
+
+cMap.set('10200', Monitor);
+mMap.set('10200', [MonitorModel]);
+
+cMap.set('10810', Workplace);
+mMap.set('10810', [ProjectModel, ActivitiesModel, ChartModel]);
+
+
 // wrapper of dynamic
-const dy = (app, models, component) => dynamic({
+export const dy = (app, models, component) => dynamic({
   app,
   models: () => models,
   component: () => component,
 });
 
 // nav data
+// export async function getDyNavData(app) {
+//   const response = await queryMenu();
+//   return processNav(response, app);
+// }
+
+// function processNav(menu, app) {
+//   let nav = getNavData(app);
+//   addProperty(menu, app);
+//   nav[0].children = menu;
+//   return nav;
+// }
+
+// function addProperty(menu, app) {
+//   menu.map((item) => {
+//     if (!(item.children == null || item.children.length == 0)) {
+//       addProperty(item.children, app);
+//     } else {
+//       item.component = dy(app, mMap.get(item.id), cMap.get(item.id));
+//     }
+    
+//   });
+// }
+
 export const getNavData = app => [
   {
     component: dy(app, [UserModel], BasicLayout),
